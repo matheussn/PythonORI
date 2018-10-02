@@ -45,6 +45,21 @@ def filtro(num):
 
 	return result
 
+def createDic(vet, num):
+	for palavra in vet:
+		if dic.get(palavra) == None:
+			dic[palavra] = {}
+
+		v = dic[palavra]
+		#contagem 
+		qnt = contar(palavra, num)
+
+		v[num+1] = qnt
+
+
+def contar(palavra, num):
+	return 0
+
 
 if __name__ == '__main__':
 	init()
@@ -52,5 +67,8 @@ if __name__ == '__main__':
 	initFiles()
 
 	for i in range(0, len(files)):
+		#pegar vetor
 		v = filtro(i)
-		print(v)
+		#contar as palavras e add no dicionario
+		createDic(v, i)
+	print(dic)
