@@ -14,5 +14,7 @@ if __name__ == '__main__':
 	for linha in base:
 		linha = linha.split()
 		files.append(open(linha[0], 'r'))
-	
+
 	print(files)
+	
+	base.close()
