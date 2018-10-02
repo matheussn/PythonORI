@@ -8,4 +8,11 @@ if __name__ == '__main__':
 	if len(sys.argv) > 2 or len(sys.argv) == 1:
 		exit()
 
-	base = sys.argv[1]
+	files = []
+	base = open(sys.argv[1], 'r')
+	
+	for linha in base:
+		linha = linha.split()
+		files.append(open(linha[0], 'r'))
+	
+	print(files)
