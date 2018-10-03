@@ -13,7 +13,7 @@ def init():
 		exit()
 
 def initFiles():
-	base = open(sys.argv[1], 'r')
+	base = open(sys.argv[1], 'r', encoding="ISO-8859-1")
 	
 	qnt = base.readlines()
 
