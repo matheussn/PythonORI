@@ -3,9 +3,7 @@
 # Matheus Santiago Neto - 11621BSI252
 
 import sys
-from nltk.corpus import stopwords
-
-# {'amor': {1: 3, 2:0}, ''}
+import nltk
 
 files = []
 dic = {}
@@ -35,7 +33,8 @@ def c(str):
 
 #Retorna lista de palvras não stopwords
 def filtro(num):
-	sw = stopwords.words("portuguese")
+	st = nltk.stem.RSLPStemmer()
+	sw = nltk.corpus.stopwords.words("portuguese")
 	conteudo = files[num].read()
 	conteudo = conteudo.lower()
 	conteudo = c(conteudo)
@@ -43,7 +42,12 @@ def filtro(num):
 	
 	result = [rr for rr in conteudo if rr not in sw]
 
-	return result
+	res = []
+
+	for palavra in result:
+		res.append(st.stem(palavra))
+
+	return res
 
 def createDic(vet, num):
 	for palavra in vet:
@@ -51,14 +55,25 @@ def createDic(vet, num):
 			dic[palavra] = {}
 
 		v = dic[palavra]
-		#contagem 
-		qnt = contar(palavra, num)
+		#contagem
+		if v.get(num+1) == None:
+			v[num+1] = 0
 
-		v[num+1] = qnt
+		v[num+1] += 1
 
+def createfile():
+	file = open('indice.txt', 'w')
+	texto = []
 
-def contar(palavra, num):
-	return 0
+	for x in dic:
+		s = ''+x+':'
+		for y in dic[x]:
+			s = s + ' ' + str(y) + ',' +str(dic[x][y])
+		s = s + '\n'
+		texto.append(s)
+
+	file.writelines(texto)
+	file.close()
 
 
 if __name__ == '__main__':
@@ -71,4 +86,5 @@ if __name__ == '__main__':
 		v = filtro(i)
 		#contar as palavras e add no dicionario
 		createDic(v, i)
-	print(dic)
+	
+	createfile()
