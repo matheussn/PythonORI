@@ -19,7 +19,7 @@ def initFiles():
 
 	for linha in qnt:
 		linha = linha.replace('\n', '')
-		files.append(open(linha, 'r'))
+		files.append(open(linha, 'r', encoding="ISO-8859-1"))
 
 	base.close()
 
