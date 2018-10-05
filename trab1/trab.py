@@ -5,8 +5,12 @@
 import sys
 import nltk
 
+ignore = ['PREP', 'PREP|+', 'ART', 'CONJ']
 files = []
 dic = {}
+st = ''
+sw = ''
+et = ''
 
 def init():
 	if len(sys.argv) > 2 or len(sys.argv) == 1:
@@ -31,21 +35,18 @@ def c(str):
 	str = str.replace('\n', ' ')
 	return str
 
+
 #Retorna lista de palvras não stopwords
 def filtro(num):
-	st = nltk.stem.RSLPStemmer()
-	sw = nltk.corpus.stopwords.words("portuguese")
 	conteudo = files[num].read()
-	conteudo = conteudo.lower()
-	conteudo = c(conteudo)
+	conteudo = c(conteudo.lower())
 	conteudo = conteudo.split()
 	
 	result = [rr for rr in conteudo if rr not in sw]
 
-	res = []
+	cl = et.tag(result)
 
-	for palavra in result:
-		res.append(st.stem(palavra))
+	res = [st.stem(rr[0]) for rr in cl if rr[1] not in ignore]
 
 	return res
 
@@ -75,11 +76,24 @@ def createfile():
 	file.writelines(texto)
 	file.close()
 
+def closefiles():
+	for f in files:
+		f.close()
+
+def initVars():
+	global st 
+	st = nltk.stem.RSLPStemmer()
+	global sw 
+	sw = nltk.corpus.stopwords.words("portuguese")
+	sents = nltk.corpus.mac_morpho.tagged_sents()
+	global et
+	et = nltk.tag.UnigramTagger(sents)
 
 if __name__ == '__main__':
 	init()
 
 	initFiles()
+	initVars()
 
 	for i in range(0, len(files)):
 		#pegar vetor
@@ -88,3 +102,4 @@ if __name__ == '__main__':
 		createDic(v, i)
 	
 	createfile()
+	closefiles()
