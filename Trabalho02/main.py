@@ -3,13 +3,18 @@
 # Matheus Santiago Neto - 11621BSI252
 
 import sys
+import os.path
 import nltk
+import pickle
+import math
 
 ## Variaveis globais para uso nas funções
 # ignore -> lista de classificação de palavras a ser ignorada
 ignore = ['PREP', 'PREP|+', 'ART', 'CONJ']
 # files -> lista de arquivos a serem avaliados
 files = []
+# cons -> Arquivo com a consulta
+cons = None
 # dic -> dicionário a ser utilizado para criação do indice invertido
 dic = {}
 # dicFile
@@ -24,7 +29,7 @@ et = ''
 
 ## Função para validar os arqumentos passados pela linha de comando
 def init():
-	if len(sys.argv) > 2 or len(sys.argv) == 1:
+	if len(sys.argv) > 3 or len(sys.argv) == 1:
 		exit()
 
 ## Função para setar a lista de arquivos a ser acessada
@@ -38,6 +43,8 @@ def initFiles():
 		files.append(open(linha, 'r', encoding="ISO-8859-1"))
 
 	base.close()
+	global cons
+	cons = open(sys.argv[2], 'r', encoding="ISO-8859-1")
 
 ## Função para executar os replaces devidos
 def rep(str):
@@ -77,14 +84,14 @@ def createDic(vet, num):
 		v[num+1] += 1
 
 ## Cria o arquivo indice.txt e escreve no mesmo
-def createfile():
-	file = open('indice.txt', 'w')
+def createpeso():
+	file = open('peso.txt', 'w')
 	texto = []
 
-	for x in dic:
+	for x in dicFile:
 		s = ''+x+':'
-		for y in dic[x]:
-			s = s + ' ' + str(y) + ',' +str(dic[x][y])
+		for y in dicFile[x]:
+			s = s + ' ' + str(y) + ',' +str(dicFile[x][y]) + '\t'
 		s = s + '\n'
 		texto.append(s)
 
@@ -102,9 +109,13 @@ def initVars():
 	st = nltk.stem.RSLPStemmer()
 	global sw 
 	sw = nltk.corpus.stopwords.words("portuguese")
-	sents = nltk.corpus.mac_morpho.tagged_sents()
+
 	global et
-	et = nltk.tag.UnigramTagger(sents)
+	if os.path.isfile('etiquetador'):
+		et = pickle.load( open('etiquetador', 'rb') )
+	else:
+		sents = nltk.corpus.mac_morpho.tagged_sents()
+		et = nltk.tag.UnigramTagger(sents)
 
 def listaInvertida():
 	init()
@@ -119,31 +130,47 @@ def listaInvertida():
 		createDic(v, i)
 
 def tfidf(freq, n):
-	print("freq: "+str(freq) + " => " +"quantArquivos: "+ str(n))
+	return ( ( 1+ math.log(freq,10) ) * math.log( len(files) / n , 10) )
 
 def ponderacao(namefile, numfile):
-	print(namefile)
+	# Chaves no dicionário de termos
 	keys = list(dic.keys())
+	# Ordenando
 	keys.sort()
 	for key in keys:
-		if dicFile.get(namefile) == None:
-			dic[namefile] = {}
+		if dic[key].get(numfile) != None: # termo está no documento
+			if dicFile.get(namefile) == None: # Não existe o arquivo no dicionario de arquivos
+				dicFile[namefile] = {}
 
-		v = dic[namefile]
+			v = dicFile[namefile]
 
-		if dic[key].get(numfile) != None:
 			index = keys.index(key)
 			f = dic[key][numfile]
 			n = len(dic[key])
 
 			if v.get(index) == None:
-				v[index] = tfidf(f, n)
+				if(f > 0):
+					tf = tfidf(f, n)
+					if tf > 0:
+						v[index] = tf
+				else:
+					v[index] = 0
+
+def consulta():
+	c = cons.read()
+	c.replace('\n', '')
+	c = c.split("|")
+	print(c)
 
 if __name__ == '__main__':
 	listaInvertida()
 	
 	for i in range(0, len(files)):
 		ponderacao(files[i].name, i+1)
+	
+	createpeso()
+
+	consulta()
 	
 	closefiles()
 
