@@ -29,7 +29,7 @@ et = ''
 
 ## Função para validar os arqumentos passados pela linha de comando
 def init():
-	if len(sys.argv) > 3 or len(sys.argv) == 1:
+	if len(sys.argv) != 3:
 		exit()
 
 ## Função para setar a lista de arquivos a ser acessada
@@ -156,11 +156,22 @@ def ponderacao(namefile, numfile):
 				else:
 					v[index] = 0
 
+def resCons(sub):
+	keys = list(dic.keys())
+	keys.sort()
+	print(keys)
+	sub = sub.split('&')
+	sub.sort()
+	sub = [st.stem(c) for c in sub]
+	print(sub)
+
 def consulta():
 	c = cons.read()
-	c.replace('\n', '')
+	c = c.replace('\n', '')
+	c = c.replace(' ', '')
 	c = c.split("|")
-	print(c)
+	for subc in c :
+		resCons(subc)
 
 if __name__ == '__main__':
 	listaInvertida()
