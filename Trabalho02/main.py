@@ -19,6 +19,12 @@ cons = None
 dic = {}
 # dicFile
 dicFile = {}
+# dicCons -> Dicionário da consulta
+dicCons = {}
+# rescons
+resCons = {}
+# res
+res = {}
 # st -> Stem.nltk.stem.RSLPStemmer()
 st = ''
 # sw -> variavel para guardar as StopWords
@@ -156,14 +162,56 @@ def ponderacao(namefile, numfile):
 				else:
 					v[index] = 0
 
-def resCons(sub):
+def createDicCons(sub):
 	keys = list(dic.keys())
 	keys.sort()
-	print(keys)
+
+	#add consulta no dicionário
+	if dicCons.get(sub) == None:
+		dicCons[sub] = {}
+	chave = sub
 	sub = sub.split('&')
 	sub.sort()
 	sub = [st.stem(c) for c in sub]
-	print(sub)
+
+	for key in sub:
+		f = 1
+		n = len(dic[key])
+		index = keys.index(key)
+		v = dicCons[chave]
+		if v.get(index) == None:
+			tf = tfidf(f, n)
+			if tf > 0:
+				v[index] = tf
+
+def sim(c, d):
+	s = 0
+	r1 = 0
+	r2 = 0
+	for i in range(0, len(dic.keys())):
+		wiq = 0 if c.get(i) == None else c[i]
+		wij = 0 if d.get(i) == None else d[i]
+		s += wiq * wij
+
+		r1 += wij ** 2
+		r2 += wiq ** 2
+
+	r1 = r1 ** (1/2)
+	r2 = r2 ** (1/2)
+
+	return s / (r1 * r2)
+
+def resposta(sub):
+	r = {}
+	cons = dicCons.get(sub)
+	print(cons)
+	for f in dicFile:
+		t = dicFile.get(f)
+		s = sim(cons, t)
+		print("similaridade: " + str(s))
+		r[f] = s
+
+	return r
 
 def consulta():
 	c = cons.read()
@@ -171,7 +219,11 @@ def consulta():
 	c = c.replace(' ', '')
 	c = c.split("|")
 	for subc in c :
-		resCons(subc)
+		createDicCons(subc)
+		resCons[subc] = resposta(subc)
+	
+	print(resCons)
+	
 
 if __name__ == '__main__':
 	listaInvertida()
