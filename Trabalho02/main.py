@@ -153,7 +153,7 @@ def ponderacao(namefile, numfile):
 
 			v = dicFile[namefile]
 
-			index = keys.index(key)
+			index = keys.index(key) +1
 			f = dic[key][numfile]
 			n = len(dic[key])
 
@@ -274,4 +274,6 @@ if __name__ == '__main__':
 	fileResp()
 	
 	closefiles()
+
+	print("DicFile: \n" + str(dicFile))
 
