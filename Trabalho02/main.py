@@ -181,7 +181,7 @@ def createDicCons(sub):
 	for key in sub:
 		f = 1
 		n = len(dic[key])
-		index = keys.index(key)
+		index = keys.index(key) +1
 		v = dicCons[chave]
 		if v.get(index) == None:
 			tf = tfidf(f, n)
@@ -275,5 +275,5 @@ if __name__ == '__main__':
 	
 	closefiles()
 
-	print("DicFile: \n" + str(dicFile))
+	#print("DicFile: \n" + str(dicFile))
 
