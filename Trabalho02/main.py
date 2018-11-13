@@ -50,7 +50,7 @@ def initFiles():
 
 	base.close()
 	global cons
-	cons = open(sys.argv[2], 'r', encoding="ISO-8859-1")
+	cons = open(sys.argv[2], 'r')
 
 ## Função para executar os replaces devidos
 def rep(str):
@@ -123,6 +123,7 @@ def initVars():
 		sents = nltk.corpus.mac_morpho.tagged_sents()
 		et = nltk.tag.UnigramTagger(sents)
 
+## Função que inicia e cria a lista invertida
 def listaInvertida():
 	init()
 
@@ -135,9 +136,11 @@ def listaInvertida():
 		#contar as palavras e add no dicionario
 		createDic(v, i)
 
+## Calculo do TF-IDF
 def tfidf(freq, n):
 	return ( ( 1+ math.log(freq,10) ) * math.log( len(files) / n , 10) )
 
+## Função para criar o dicionário com as ponderações dos termos
 def ponderacao(namefile, numfile):
 	# Chaves no dicionário de termos
 	keys = list(dic.keys())
@@ -162,6 +165,7 @@ def ponderacao(namefile, numfile):
 				else:
 					v[index] = 0
 
+## Criar dicionário da consulta
 def createDicCons(sub):
 	keys = list(dic.keys())
 	keys.sort()
@@ -184,6 +188,7 @@ def createDicCons(sub):
 			if tf > 0:
 				v[index] = tf
 
+## calculo da similaridade
 def sim(c, d):
 	s = 0
 	r1 = 0
@@ -201,18 +206,19 @@ def sim(c, d):
 
 	return s / (r1 * r2)
 
+## Função que retorna a resposta para uma subconsulta
 def resposta(sub):
 	r = {}
 	cons = dicCons.get(sub)
-	print(cons)
 	for f in dicFile:
 		t = dicFile.get(f)
 		s = sim(cons, t)
-		print("similaridade: " + str(s))
-		r[f] = s
+		if(s >= 0.001):
+			r[f] = s
 
 	return r
 
+## Cria o dicionário com as respostas para cada subconsulta
 def consulta():
 	c = cons.read()
 	c = c.replace('\n', '')
@@ -221,9 +227,39 @@ def consulta():
 	for subc in c :
 		createDicCons(subc)
 		resCons[subc] = resposta(subc)
-	
-	print(resCons)
-	
+
+## Criar e escrever as respostas em arquivo
+def createFileRes(dic):
+	f = open('resposta.txt', 'w')
+	texto = []
+
+	texto.append(''+str(len(dic))+'\n')
+
+	# v recebe um vetor de tuplas [('key', value), ...] ordenados de forma decrescente
+	v = sorted(dic.items(), key=lambda kv: kv[1], reverse=True)
+
+	for x in v:
+		s = ''+x[0]+': ' + str(x[1]) + '\n'
+		texto.append(s)
+
+	f.writelines(texto)
+	f.close()
+
+## Função para criar o arquivo resposta.txt
+def fileResp():
+	t = {}
+
+	## MELHORAR ESSE FOR ANINHADO!!!!!!!!!!!!!!
+	for v in resCons.values():
+		for rr in v:
+			if t.get(rr) == None:
+				t[rr] = v[rr]
+			else:
+				if t[rr] < v[rr]:
+					t[rr] = v[rr]
+
+	createFileRes(t)
+
 
 if __name__ == '__main__':
 	listaInvertida()
@@ -234,6 +270,8 @@ if __name__ == '__main__':
 	createpeso()
 
 	consulta()
+
+	fileResp()
 	
 	closefiles()
 
