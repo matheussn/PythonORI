@@ -1,1 +1,6 @@
 *.pyc
+*.txt
+*.toy
+*.samba
+
+.vscode
