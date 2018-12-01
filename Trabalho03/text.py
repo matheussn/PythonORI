@@ -7,21 +7,21 @@ import nltk
 
 class Text:
   def __init__(self):
-    self.stemmer = nltk.stem.RSLPStemmer()
-    self.stopWords = nltk.corpus.stopwords.words("portuguese")
+    self.__stemmer = nltk.stem.RSLPStemmer()
+    self.__stopWords = nltk.corpus.stopwords.words("portuguese")
   
   '''
     Função que remove o radical da string 'word'
   '''
   def removeRadical(self, word):
-    return self.stem(word)
+    return self.__stemmer.stem(word)
   
   '''
     Função que remove as Stopwords e realiza a extração de radicais de um vetor
     retorna um vetor contendo apenas palavras consideradas não stopwords e sem seus radicais
   '''
   def removeSR(self, vet):
-    return [self.removeRadical(rr) for rr in vet if rr not in self.stopWords]
+    return [self.removeRadical(rr) for rr in vet if rr not in self.__stopWords]
 
   def pattern(self,str):
     str = str.replace(',', ' ')
