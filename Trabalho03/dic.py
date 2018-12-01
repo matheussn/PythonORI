@@ -1,3 +1,5 @@
+from func import *
+
 '''
   Classe que possui todos os dicionários que serão utilizados pelo sistema de RI
 '''
@@ -24,10 +26,25 @@ class Dicionarios:
       
       v[num] += 1
 
-  def addToFileWeight(self, num):
-    key = list(self.__index.keys())
-    key.sort()
-    print(key)
+  def initFileWeight(self):
+    keys = list(self.__index.keys())
+    keys.sort()
+
+    for i in range(0, self.__file.lenBase()):
+      for key in keys:
+        if self.__index[key].get(i) != None:
+          nameFile = self.__file.getBaseFile()[i].name
+
+          if self.__fileWeight.get(nameFile) == None:
+            self.__fileWeight[nameFile] = {}
+
+          index = keys.index(key)
+
+          # Calcular TF-IDF
+          self.__fileWeight[nameFile][index] = tfidf(
+                                                  self.__index[key].get(i),
+                                                  len(self.__index[key]),
+                                                  self.__file.lenBase())
 
   def getIndex(self):
     return self.__index

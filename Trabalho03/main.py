@@ -24,7 +24,9 @@ if __name__ == '__main__':
     v = files.read(i)
     dic.addToIndex(v, i)
   
-  dic.addToFileWeight(i)
+  dic.initFileWeight()
+
+  #files.createWeightFile(dic.getFileWeight())
 
 
-  print(str(dic.index))
+  print(str(dic.getIndex()))
