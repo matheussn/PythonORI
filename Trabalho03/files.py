@@ -1,13 +1,11 @@
 '''
   Classe que possui todos os arquivos que serão utilizados pelo sistema de RI
 '''
-
-from text import Text
-
 class Files:
-  def __init__(self, argv):
+  def __init__(self, argv, text):
     self.baseFiles = []
     self.consFile = None
+    self.text = text
 
     base = open(argv[1], 'r', encoding="ISO-8859-1")
     qnt = base.readlines()
@@ -28,12 +26,15 @@ class Files:
       return None
 
     c = self.baseFiles[index].read()
-    c = Text.pattern(c.lower())
+    c = self.text.pattern(c.lower())
 
     return c.split()
 
   def lenBase(self):
     return len(self.baseFiles)
+  
+  def getBase(self):
+    pass
 
   def teste(self):
     print(self.baseFiles)

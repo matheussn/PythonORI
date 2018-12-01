@@ -2,11 +2,12 @@
   Classe que possui todos os dicionários que serão utilizados pelo sistema de RI
 '''
 class Dicionarios:
-  def __init__(self):
+  def __init__(self, files):
     self.index = {}       # Indice invertido
     self.fileWeight = {}  # Peso dos arquivos
     self.queryWeight = {} # Peso da consulta
     self.answer = {}      # Conjunto da resposta
+    self.file = files     # 
     
   '''
     Add palavras no indice invertido
@@ -23,6 +24,10 @@ class Dicionarios:
       
       v[num] += 1
 
+  def addToFileWeight(self, num):
+    key = list(self.index.keys())
+    key.sort()
+    print(key)
 
   def getIndex(self):
     return self.index

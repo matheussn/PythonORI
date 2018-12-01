@@ -23,7 +23,7 @@ class Text:
   def removeSR(self, vet):
     return [self.removeRadical(rr) for rr in vet if rr not in self.stopWords]
 
-  def pattern(str):
+  def pattern(self,str):
     str = str.replace(',', ' ')
     str = str.replace('.', ' ')
     str = str.replace('!', ' ')
