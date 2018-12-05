@@ -16,6 +16,9 @@ class Files:
       b = open(linha, 'r')
       name = b.name.replace('./base/', '')
       content = self.__text.pattern(b.read()).lower()
+      content = content.split()
+      content = self.__text.removeSR(content)
+      content = self.__text.removeNumber(content)
       self.__baseFiles[name] = content
       b.close()
     
@@ -34,10 +37,7 @@ class Files:
     Ler arquivo na posição indicada
   '''
   def readBase(self, index):
-    c = self.__baseFiles[index].split()
-    c = self.__text.removeSR(c)
-    c = self.__text.removeNumber(c)
-    return c
+    return self.__baseFiles[index]
 
   '''--------------------------------------------'''
 
@@ -46,7 +46,7 @@ class Files:
     texto = []
 
     for x in dicFile:
-      s = ''+x+':'
+      s = ''+str(x)+':'
       for y in dicFile[x]:
         s = s + ' ' + str(y) + ',' +str(dicFile[x][y])
       

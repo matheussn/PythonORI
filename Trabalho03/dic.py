@@ -31,7 +31,7 @@ class Dicionarios:
     keys.sort()
 
     for key in keys:
-      #print("termo: " + key)
+      print("termo: " + key)
       for i in self.__index.get(key):
         nameFile = i
         
