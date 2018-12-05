@@ -20,13 +20,11 @@ if __name__ == '__main__':
   # Objeto que possui os dicionários e os métodos para manipula-los
   dic = Dicionarios(files)
   
-  for i in range(0, files.lenBase()):
-    v = files.read(i)
+  for i in range(1, files.lenBase() +1):
+    v = files.readBase(str(i))
     dic.addToIndex(v, i)
-  
+
   dic.initFileWeight()
 
   #files.createWeightFile(dic.getFileWeight())
-
-
-  print(str(dic.getIndex()))
+  print('termos: ' +str(len(dic.getIndex())))

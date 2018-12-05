@@ -30,21 +30,37 @@ class Dicionarios:
     keys = list(self.__index.keys())
     keys.sort()
 
-    for i in range(0, self.__file.lenBase()):
+    for key in keys:
+      #print("termo: " + key)
+      for i in self.__index.get(key):
+        nameFile = i
+        
+        if self.__fileWeight.get(nameFile) == None:
+            self.__fileWeight[nameFile] = {}
+          
+        index = keys.index(key)
+        self.__fileWeight[nameFile][index] = tfidf(
+                                                  self.__index[key].get(i),
+                                                  len(self.__index[key]),
+                                                  self.__file.lenBase())      
+
+    '''for i in range(1, self.__file.lenBase() +1):
+      print(str(i))
       for key in keys:
         if self.__index[key].get(i) != None:
-          nameFile = self.__file.getBaseFile()[i].name
+          nameFile = i
 
           if self.__fileWeight.get(nameFile) == None:
             self.__fileWeight[nameFile] = {}
 
           index = keys.index(key)
+          print('\t indice: '+str(index))
 
           # Calcular TF-IDF
           self.__fileWeight[nameFile][index] = tfidf(
                                                   self.__index[key].get(i),
                                                   len(self.__index[key]),
-                                                  self.__file.lenBase())
+                                                  self.__file.lenBase())'''
 
   def getIndex(self):
     return self.__index

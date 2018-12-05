@@ -4,7 +4,7 @@
 class Files:
   
   def __init__(self, argv, text):
-    self.__baseFiles = []
+    self.__baseFiles = {}
     self.__consFile = None
     self.__text = text
 
@@ -13,7 +13,11 @@ class Files:
 
     for linha in qnt:
       linha = linha.replace('\n', '')
-      self.__baseFiles.append(open(linha, 'r', encoding="ISO-8859-1"))
+      b = open(linha, 'r')
+      name = b.name.replace('./base/', '')
+      content = self.__text.pattern(b.read()).lower()
+      self.__baseFiles[name] = content
+      b.close()
     
     base.close()
     self.__consFile = open(argv[2], 'r')
@@ -29,16 +33,10 @@ class Files:
   '''
     Ler arquivo na posição indicada
   '''
-  def read(self, index):
-    if index >= len(self.__baseFiles):
-      print("Indice Maior q o tamanho do vetor")
-      return None
-
-    c = self.__baseFiles[index].read()
-    c = self.__text.pattern(c.lower())
-    c = c.split()
+  def readBase(self, index):
+    c = self.__baseFiles[index].split()
     c = self.__text.removeSR(c)
-
+    c = self.__text.removeNumber(c)
     return c
 
   '''--------------------------------------------'''

@@ -7,8 +7,8 @@ import nltk
 
 class Text:
   def __init__(self):
-    self.__stemmer = nltk.stem.RSLPStemmer()
-    self.__stopWords = nltk.corpus.stopwords.words("portuguese")
+    self.__stemmer = nltk.stem.SnowballStemmer("english")
+    self.__stopWords = nltk.corpus.stopwords.words("english")
   
   '''
     Função que remove o radical da string 'word'
@@ -23,7 +23,26 @@ class Text:
   def removeSR(self, vet):
     return [self.removeRadical(rr) for rr in vet if rr not in self.__stopWords]
 
+  def removeNumber(self, vet):
+    return [i for i in vet if not i.isdigit()]
+
   def pattern(self,str):
+    str = str.replace(':', ' ')
+    str = str.replace('TITLE', ' ')
+    str = str.replace('AUTHORS', ' ')
+    str = str.replace('SOURCE', ' ')
+    str = str.replace('ABSTRACT', ' ')
+    str = str.replace('MAJOR SUBJECTS', ' ')
+    str = str.replace('MINOR SUBJECTS', ' ')
+    str = str.replace('REFERENCES', ' ')
+    str = str.replace('CITATIONS', ' ')
+    str = str.replace(';', ' ')
+    str = str.replace(')', ' ')
+    str = str.replace('(', ' ')
+    str = str.replace('/', ' ')
+    str = str.replace('\\', ' ')
+    str = str.replace('+', ' ')
+    str = str.replace('-', ' ')
     str = str.replace(',', ' ')
     str = str.replace('.', ' ')
     str = str.replace('!', ' ')

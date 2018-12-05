@@ -268,7 +268,7 @@ if __name__ == '__main__':
 		ponderacao(files[i].name, i+1)
 	
 	createpeso()
-
+##############
 	consulta()
 
 	fileResp()
