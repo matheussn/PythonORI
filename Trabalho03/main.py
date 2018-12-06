@@ -15,11 +15,11 @@ if __name__ == '__main__':
   init()
 
   # Objeto que possui os manipuladores de texto e o nltk
-  txt = Text()
+  #txt = Text()
   # Objeto que possui os arquivos e os métodos para manipula-los
-  files = Files(sys.argv, txt)
+  #files = Files(sys.argv, txt)
   # Objeto que possui os dicionários e os métodos para manipula-los
-  dic = Dicionarios(files)
+  #dic = Dicionarios(files)
   
   #for i in range(1, files.lenBase() +1):
   #  v = files.readBase(str(i))

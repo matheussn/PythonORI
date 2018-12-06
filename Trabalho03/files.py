@@ -10,19 +10,20 @@ class Files:
 
     base = open(argv[1], 'r', encoding="ISO-8859-1")
     qnt = base.readlines()
+    base.close()
 
     for linha in qnt:
       linha = linha.replace('\n', '')
       b = open(linha, 'r')
       name = b.name.replace('./base/', '')
       content = self.__text.pattern(b.read()).lower()
+      b.close()
       content = content.split()
       content = self.__text.removeSR(content)
+      print(content[0])
       content = self.__text.removeNumber(content)
       self.__baseFiles[name] = content
-      b.close()
-    
-    base.close()
+  
     self.__consFile = open(argv[2], 'r')
 
   '''--------------------------------------------'''
