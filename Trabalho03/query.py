@@ -1,3 +1,5 @@
+from text import *
+
 def initDicQuery():
   return {}
 
@@ -18,7 +20,14 @@ def createDicQuery(dic, cont):
     dic[index] = {}
     
     text, n = n.split('NUMBER OF RELEVANT DOCS:')
-    dic[index]["texto"] = text.split() # Tirar STOPWORDS
+    text = text.lower()
+    text = removeSR(text.split())
+    dic[index]["texto"] = {}
+    tfidf = 1
+    for i in text:
+      #tfidf = função
+      if tfidf > 0:
+        dic[index]["texto"][i] = tfidf
 
     numDoc, n = n.split('RELEVANT DOCS AND SCORES:')
     dic[index]["NumDoc"] = numDoc

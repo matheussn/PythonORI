@@ -5,6 +5,19 @@
 
 import nltk
 
+stemmer = nltk.stem.SnowballStemmer("english")
+stopWords = nltk.corpus.stopwords.words("english")
+
+def removeRadical(word):
+  return stemmer.stem(word)
+
+def removeSR(vet):
+  return [removeRadical(rr) for rr in vet if rr not in stopWords]
+
+def removeNumber(vet):
+  return [i for i in vet if not i.isdigit()]
+
+
 class Text:
   def __init__(self):
     self.__stemmer = nltk.stem.SnowballStemmer("english")
