@@ -3,6 +3,7 @@ import sys
 from dic import Dicionarios
 from files import Files
 from text import Text
+from query import *
 
 def init():
   if len(sys.argv) != 3:
@@ -20,11 +21,20 @@ if __name__ == '__main__':
   # Objeto que possui os dicionários e os métodos para manipula-los
   dic = Dicionarios(files)
   
-  for i in range(1, files.lenBase() +1):
-    v = files.readBase(str(i))
-    dic.addToIndex(v, i)
+  #for i in range(1, files.lenBase() +1):
+  #  v = files.readBase(str(i))
+  #  dic.addToIndex(v, i)
 
-  dic.initFileWeight()
+  #dic.initFileWeight()
 
   #files.createWeightFile(dic.getFileWeight())
-  print('termos: ' +str(len(dic.getIndex())))
+  #print('termos: ' +str(len(dic.getIndex())))
+
+
+  query = initDicQuery()
+
+  filequery = openQuery(sys.argv[2])
+
+  query = createDicQuery(query, filequery)
+
+  print(query)
