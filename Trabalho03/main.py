@@ -1,8 +1,7 @@
 import sys
 
-from dic import Dicionarios
-from files import Files
-from text import Text
+from dic import *
+from files import *
 from query import *
 
 def init():
@@ -13,17 +12,17 @@ def init():
 
 if __name__ == '__main__':
   init()
-
-  # Objeto que possui os manipuladores de texto e o nltk
-  #txt = Text()
-  # Objeto que possui os arquivos e os métodos para manipula-los
-  #files = Files(sys.argv, txt)
-  # Objeto que possui os dicionários e os métodos para manipula-los
-  #dic = Dicionarios(files)
   
-  #for i in range(1, files.lenBase() +1):
-  #  v = files.readBase(str(i))
-  #  dic.addToIndex(v, i)
+  base = readBaseFile(sys.argv[1])
+  baseFiles = dict()
+  invertedIndex = dict()
+  initBase(baseFiles, base, invertedIndex) #baseFile Dicionário dos arquivos
+
+  print(invertedIndex)
+
+  '''for i in range(1, len(baseFile) +1):
+    v = files.readBase(str(i))
+    dic.addToIndex(v, i)'''
 
   #dic.initFileWeight()
 
@@ -31,10 +30,10 @@ if __name__ == '__main__':
   #print('termos: ' +str(len(dic.getIndex())))
 
 
-  query = initDicQuery()
+  '''query = initDicQuery()
 
   filequery = openQuery(sys.argv[2])
 
   query = createDicQuery(query, filequery)
 
-  print(query)
+  print(query)'''

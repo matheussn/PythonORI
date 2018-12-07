@@ -1,58 +1,85 @@
-'''
-  Classe que possui todos os arquivos que serão utilizados pelo sistema de RI
-'''
-class Files:
-  
-  def __init__(self, argv, text):
-    self.__baseFiles = {}
-    self.__consFile = None
-    self.__text = text
+from text import *
+from func import *
+from dic import *
 
-    base = open(argv[1], 'r', encoding="ISO-8859-1")
-    qnt = base.readlines()
-    base.close()
+def readBaseFile(local):
+  f = open(local, 'r', encoding="ISO-8859-1")
+  txt = f.readlines()
+  f.close()
+  return txt
 
-    for linha in qnt:
-      linha = linha.replace('\n', '')
-      b = open(linha, 'r')
-      name = b.name.replace('./base/', '')
-      content = self.__text.pattern(b.read()).lower()
-      b.close()
-      content = content.split()
-      content = self.__text.removeSR(content)
-      print(content[0])
-      content = self.__text.removeNumber(content)
-      self.__baseFiles[name] = content
-  
-    self.__consFile = open(argv[2], 'r')
+def getString(string,inicio, fim):
+  start = string.find(inicio) + len(inicio)
+  end = string.find(fim)
+  c = string[start:end].strip()
+  c = c.split()
+  c = removeNumber(c)
+  c = removeSR(c)
+  return c
 
-  '''--------------------------------------------'''
+def initBase(baseFiles, texto, index):
+  for linha in texto:
+    linha = linha.replace('\n', '')
+    b = open(linha, 'r')
+    name = b.name.replace('./base/', '')
+    content = b.read()
+    b.close()
 
-  def lenBase(self):
-    return len(self.__baseFiles)
+    content = pattern(content)
+    content = content.split('NUMBER:')
 
-  def getBaseFile(self):
-    return self.__baseFiles
+    for i in range(0, len(content)):
+      c = content[i].strip()
 
-  '''
-    Ler arquivo na posição indicada
-  '''
-  def readBase(self, index):
-    return self.__baseFiles[index]
+      title = getString(c, "TITLE:", "AUTHORS:")
+      addIndex(index, title, name)
 
-  '''--------------------------------------------'''
+      authors = getString(c, "AUTHORS:", "SOURCE:")
+      addIndex(index, authors, name)
 
-  def createWeightFile(self,dicFile):
-    f = open('peso.txt', 'w')
-    texto = []
+      source = getString(c, "SOURCE:", "ABSTRACT:")
+      addIndex(index, source, name)
 
-    for x in dicFile:
-      s = ''+str(x)+':'
-      for y in dicFile[x]:
-        s = s + ' ' + str(y) + ',' +str(dicFile[x][y])
+      abstract = getString(c, "ABSTRACT:", "MAJOR SUBJECTS:")
+      addIndex(index, abstract, name)
       
-      s = s + '\n'
-      texto.append(s)
+      major = getString(c, "MAJOR SUBJECTS:", "MINOR SUBJECTS:")
+      addIndex(index, major, name)
 
-    f.writelines(texto)
-    f.close()
+      minor = getString(c, "MINOR SUBJECTS:", "REFERENCES:")
+      addIndex(index, minor, name)
+
+      ref = getString(c, "REFERENCES:", "CITATIONS:")
+      addIndex(index, ref, name)
+
+      cit = getString(c, "CITATIONS:", "\n\n")
+      addIndex(index, cit, name)
+
+      ## INICIAR PESO!
+
+      baseFiles[name] = {
+        'Title': title,
+        'Authors': authors,
+        'Source': source,
+        'Abstract': abstract,
+        'MajorSub': major,
+        'MinorSub': minor,
+        'References': ref,
+        'Citations': cit
+        }
+
+
+def createWeightFile(dicFile):
+  f = open('peso.txt', 'w')
+  texto = []
+
+  for x in dicFile:
+    s = ''+str(x)+':'
+    for y in dicFile[x]:
+      s = s + ' ' + str(y) + ',' +str(dicFile[x][y])
+    
+    s = s + '\n'
+    texto.append(s)
+
+  f.writelines(texto)
+  f.close()
