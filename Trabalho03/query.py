@@ -24,6 +24,8 @@ def createDicQuery(dic, conteudo):
 	  
 	  relDocs = getNumber(c, "RELEVANT DOCS AND SCORES:", "\n\n" )
 	  
+	  relevantDocs = {}
+	  
 	  for i in int(nRelevantDocs):
 		documento,score = relevantDocs[i].split(',')
 		relevantDocs[documento] = score 
