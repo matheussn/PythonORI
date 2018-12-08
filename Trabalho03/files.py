@@ -26,47 +26,45 @@ def initBase(baseFiles, texto, index):
     b.close()
 
     content = pattern(content)
-    content = content.split('NUMBER:')
+    
+    c = content.strip()
 
-    for i in range(0, len(content)):
-      c = content[i].strip()
+    title = getString(c, "TITLE:", "AUTHORS:")
+    addIndex(index, title, name)
 
-      title = getString(c, "TITLE:", "AUTHORS:")
-      addIndex(index, title, name)
+    authors = getString(c, "AUTHORS:", "SOURCE:")
+    addIndex(index, authors, name)
 
-      authors = getString(c, "AUTHORS:", "SOURCE:")
-      addIndex(index, authors, name)
+    source = getString(c, "SOURCE:", "ABSTRACT:")
+    addIndex(index, source, name)
 
-      source = getString(c, "SOURCE:", "ABSTRACT:")
-      addIndex(index, source, name)
+    abstract = getString(c, "ABSTRACT:", "MAJOR SUBJECTS:")
+    addIndex(index, abstract, name)
+    
+    major = getString(c, "MAJOR SUBJECTS:", "MINOR SUBJECTS:")
+    addIndex(index, major, name)
 
-      abstract = getString(c, "ABSTRACT:", "MAJOR SUBJECTS:")
-      addIndex(index, abstract, name)
-      
-      major = getString(c, "MAJOR SUBJECTS:", "MINOR SUBJECTS:")
-      addIndex(index, major, name)
+    minor = getString(c, "MINOR SUBJECTS:", "REFERENCES:")
+    addIndex(index, minor, name)
 
-      minor = getString(c, "MINOR SUBJECTS:", "REFERENCES:")
-      addIndex(index, minor, name)
+    ref = getString(c, "REFERENCES:", "CITATIONS:")
+    addIndex(index, ref, name)
 
-      ref = getString(c, "REFERENCES:", "CITATIONS:")
-      addIndex(index, ref, name)
+    cit = getString(c, "CITATIONS:", "\n\n")
+    addIndex(index, cit, name)
 
-      cit = getString(c, "CITATIONS:", "\n\n")
-      addIndex(index, cit, name)
+    ## INICIAR PESO!
 
-      ## INICIAR PESO!
-
-      baseFiles[name] = {
-        'Title': title,
-        'Authors': authors,
-        'Source': source,
-        'Abstract': abstract,
-        'MajorSub': major,
-        'MinorSub': minor,
-        'References': ref,
-        'Citations': cit
-        }
+    baseFiles[name] = {
+      'Title': title,
+      'Authors': authors,
+      'Source': source,
+      'Abstract': abstract,
+      'MajorSub': major,
+      'MinorSub': minor,
+      'References': ref,
+      'Citations': cit
+      }
 
 
 def createWeightFile(dicFile):

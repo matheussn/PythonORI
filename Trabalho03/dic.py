@@ -12,6 +12,8 @@ def addIndex(index, vet, name):
     
     v[name] += 1
 
+
+
 def initFileWeight(index, fileWeight, lenBase):
   keys = list(index.keys())
   keys.sort()
