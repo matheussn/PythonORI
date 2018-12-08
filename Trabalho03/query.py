@@ -11,7 +11,7 @@ def openQuery(local):
   return c
 
 def createDicQuery(dic, conteudo):
-    
+    	
   for texto in conteudo:
 	  number = getString(c, "NUMBER:", "TEXT:")
 	  addIndex(dic, number, number)
@@ -29,7 +29,7 @@ def createDicQuery(dic, conteudo):
 		relevantDocs[documento] = score 
 		  	  
 	  
-	  query[int(number)] = {
+	 dic[int(number)] = {
 		  'text': text,
 		  'nRelevantDocs': nRelevantDocs,
 		  'relevantDocs': relevantDocs,
