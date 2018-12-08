@@ -30,7 +30,7 @@ if __name__ == '__main__':
   #print('termos: ' +str(len(dic.getIndex())))
 
 
-  '''query = initDicQuery()
+  '''query = {}
 
   filequery = openQuery(sys.argv[2])
 

@@ -14,14 +14,11 @@ def createDicQuery(dic, conteudo):
     	
   for texto in conteudo:
 	  number = getString(c, "NUMBER:", "TEXT:")
-	  addIndex(dic, number, number)
 
 	  text = getString(c, "TEXT:", "NUMBER OF RELEVANT DOCS:")
-	  addIndex(dic, text, number)
-	  
+	  	  
 	  nRelevantDocs = getNumber(c, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:" )
-	  addIndex(dic, nDocsRelevant, number)
-	  
+	  	  
 	  relDocs = getNumber(c, "RELEVANT DOCS AND SCORES:", "\n\n" )
 	  
 	  relevantDocs = {}
@@ -30,15 +27,13 @@ def createDicQuery(dic, conteudo):
 		documento,score = relevantDocs[i].split(',')
 		relevantDocs[documento] = score 
 		  	  
-	  
-	 dic[int(number)] = {
+	  dic[int(number)] = {
 		  'text': text,
 		  'nRelevantDocs': nRelevantDocs,
 		  'relevantDocs': relevantDocs,
-
-      }
-	  
-	  
+      }	  
+  
+  return dic
 	  
 
 '''
