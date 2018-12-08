@@ -17,6 +17,13 @@ def getString(string,inicio, fim):
   c = removeSR(c)
   return c
 
+def getNumber(string,inicio, fim):
+	start = string.find(inicio) + len(inicio)
+	end = string.find(fim)
+	c = string[start:end].strip()
+	return c
+  
+  
 def initBase(baseFiles, texto, index):
   for linha in texto:
     linha = linha.replace('\n', '')

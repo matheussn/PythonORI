@@ -1,4 +1,5 @@
 from text import *
+from files import *
 
 def initDicQuery():
   return {}
@@ -9,13 +10,40 @@ def openQuery(local):
   p.close()
   return c
 
-def createDicQuery(dic, cont):
-  cont = cont.replace('\n  ', '')
-  cont = cont.split('\n\n')
-  for c in cont:
-    c = c.replace('\n', '')
-    c = c.replace('?', '')
-    a,n = c.split('NUMBER:')
+def createDicQuery(dic, conteudo):
+    
+  for texto in conteudo:
+	  number = getString(c, "NUMBER:", "TEXT:")
+	  addIndex(dic, number, number)
+
+	  text = getString(c, "TEXT:", "NUMBER OF RELEVANT DOCS:")
+	  addIndex(dic, text, number)
+	  
+	  nRelevantDocs = getNumber(c, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:" )
+	  addIndex(dic, nDocsRelevant, number)
+	  
+	  relDocs = getNumber(c, "RELEVANT DOCS AND SCORES:", "\n\n" )
+	  
+	  for i in int(nRelevantDocs):
+		documento,score = relevantDocs[i].split(',')
+		relevantDocs[documento] = score 
+		  	  
+	  
+	  query[int(number)] = {
+		  'text': text,
+		  'nRelevantDocs': nRelevantDocs,
+		  'relevantDocs': relevantDocs,
+
+      }
+	  
+	  
+	  
+
+'''
+ for texto in conteudo:
+    texto = texto.replace('\n', '')
+    texto = c.replace('?', '')
+    a,n = texto.split('NUMBER:')
     index,n = n.split('TEXT:')
     dic[index] = {}
     
@@ -39,3 +67,4 @@ def createDicQuery(dic, cont):
       dic[index]["Docs"][s] = c   
 
   return dic
+'''
