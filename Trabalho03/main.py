@@ -11,18 +11,18 @@ def init():
     exit()
 
 if __name__ == '__main__':
-  init()
+  '''init()
   
   base = readBaseFile(sys.argv[1])
   baseFiles = dict()
   invertedIndex = dict()
   initBase(baseFiles, base, invertedIndex) #baseFile Dicionário dos arquivos
 
-  print(invertedIndex)
+  print(invertedIndex)'''
 
   '''for i in range(1, len(baseFile) +1):
-    v = files.readBase(str(i))
-    dic.addToIndex(v, i)'''
+	v = files.readBase(str(i))
+	dic.addToIndex(v, i)'''
 
   #dic.initFileWeight()
 
@@ -30,10 +30,13 @@ if __name__ == '__main__':
   #print('termos: ' +str(len(dic.getIndex())))
 
 
-  '''query = {}
+  query = {}
 
   filequery = openQuery(sys.argv[2])
 
+  
+  
+  
   query = createDicQuery(query, filequery)
 
-  print(query)'''
+  

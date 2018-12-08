@@ -15,6 +15,14 @@ def getString(string,inicio, fim):
   c = c.split()
   c = removeNumber(c)
   c = removeSR(c)
+  
+  return c
+  
+def getSubString(string,inicio, fim):
+  start = string.find(inicio) + len(inicio)
+  end = string.find(fim)
+  c = string[start:end]
+  
   return c
 
 def getNumber(string,inicio, fim):
