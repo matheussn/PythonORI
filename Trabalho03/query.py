@@ -11,9 +11,66 @@ def openQuery(local):
   return c
 
 def createDicQuery(dic, conteudo):
-  c = conteudo.strip()
-  c = patternQuery(c)
+	c = conteudo.strip()
+	c = patternQuery(c)
+	s = c.count("NUMBER:")
+	c = c.split()
+	c.append("FIM!!!!!!!!!!!!")
+	
+	list2 = []
+	
+	for queries in range(s):
+		list = []
+		n = len(c)
+		del(c[0])
+		pos = 0
+		for aux in range(n):			
+			if c[aux]!= "NUMBER:" and c[aux]!= "FIM!!!!!!!!!!!!":
+				list.insert(pos, c[aux])
+			else:	
+				break
+			pos = pos +1 
+		list.insert(0,"NUMBER:")	
+		list = ' '.join(list)
+		list2.insert(queries,list)
+		for dele in range(pos):
+			del(c[0])
+		
+		
+	return list2
 
+	
+	
+	
+	
+	
+	
+	
+	'''
+	for consulta in range(aux):
+		number = getString(c, "NUMBER:", "TEXT:", False)
+		print(number)
+		
+		text = getString(c, "TEXT:", "NUMBER OF RELEVANT DOCS:")
+		print(text)
+		
+		nRelevantDocs = getString(c, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:", False)
+		print(nRelevantDocs)
+		
+		relDocs = getString(c, "RELEVANT DOCS AND SCORES:", "\n\n", False)
+		print(relDocs)	
+		
+		subString = getSubstring(c, "NUMBER:", "\n\n") 
+		
+		c = c.replace(subString,'')
+		
+		#print(c)
+		#break
+'''
+
+
+
+'''
   number = getString(c, "NUMBER:", "TEXT:", False)
   print(number)
   
@@ -30,7 +87,7 @@ def createDicQuery(dic, conteudo):
   
   #print (string)
 			
-			
+			'''
 			
 			
 		
