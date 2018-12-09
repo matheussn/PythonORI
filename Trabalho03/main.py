@@ -24,11 +24,10 @@ if __name__ == '__main__':
   filequery = openQuery(sys.argv[2])
 
   createDicQuery(query, filequery)
+  totalFiles = len(baseFiles)
+  createDicQueryPonderacao(query, totalFiles, invertedIndex)
   
-  createPonderacao(query, invertedIndex)
-  
-  
-  
+ 
   
 
   

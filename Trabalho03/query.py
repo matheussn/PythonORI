@@ -36,7 +36,7 @@ def createDicQuery(dicQuery, conteudo):
 			documento,score = relDocs[i].split(',')
 			relevantDocs[documento] = score 
 		
-		number = int(number[0])
+		number = int(number[0]) - 1
 			
 		
 		dicQuery[number] = {
@@ -46,9 +46,19 @@ def createDicQuery(dicQuery, conteudo):
 		}	
 	return dicQuery
 	
-def createPonderacao(query, invertedIndex):
+def createDicQueryPonderacao(queries,totalFiles, invertedIndex):
 
-	totalDocmentos = len(invertedIndex)
+	totalQuery = len(queries)
+	dicQueryPond = {}
 	
-	
-	print(len(invertedIndex['effect']))
+	for aux in range(totalQuery):
+		consulta = 'consulta '+ str(aux)
+		dicQueryPond[consulta] = {}
+		query = queries[aux]['text']
+		totalTermos = len(query)
+		for termo in range(totalTermos):
+			if query[termo] in invertedIndex:
+				freq = sum(invertedIndex[query[termo]].values())
+				dicQueryPond[consulta][query[termo]] = tf(freq)
+	print(dicQueryPond)
+
