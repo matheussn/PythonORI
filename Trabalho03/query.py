@@ -46,4 +46,9 @@ def createDicQuery(dicQuery, conteudo):
 		}	
 	return dicQuery
 	
+def createPonderacao(query, invertedIndex):
+
+	totalDocmentos = len(invertedIndex)
 	
+	
+	print(len(invertedIndex['effect']))

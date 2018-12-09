@@ -13,17 +13,24 @@ def init():
 if __name__ == '__main__':
   init()
   
-  '''base = readBaseFile(sys.argv[1])
+  base = readBaseFile(sys.argv[1])
   baseFiles = dict()
   invertedIndex = dict()
   fileWeight = dict()
-  initBase(baseFiles, base, invertedIndex, fileWeight) #baseFile Dicionário dos arquivos'''
+  initBase(baseFiles, base, invertedIndex, fileWeight) #baseFile Dicionário dos arquivos
 
-  query = {}
+  query = dict()
 
   filequery = openQuery(sys.argv[2])
 
-  query = createDicQuery(query, filequery)
+  createDicQuery(query, filequery)
+  
+  createPonderacao(query, invertedIndex)
+  
+  
+  
+  
+
   
   
 
