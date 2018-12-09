@@ -24,5 +24,7 @@ if __name__ == '__main__':
   filequery = openQuery(sys.argv[2])
 
   query = createDicQuery(query, filequery)
+  
+  
 
   
