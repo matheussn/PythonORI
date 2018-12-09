@@ -32,7 +32,7 @@ def getNumber(string,inicio, fim):
 	return c
   
   
-def initBase(baseFiles, texto, index):
+def initBase(baseFiles, texto, index, weigth):
   for linha in texto:
     linha = linha.replace('\n', '')
     b = open(linha, 'r')
@@ -69,6 +69,14 @@ def initBase(baseFiles, texto, index):
     addIndex(index, cit, name)
 
     ## INICIAR PESO!
+    weigth[name] = dict()
+    initFileWeight(index, weigth, title, name)
+    initFileWeight(index, weigth, authors, name)
+    initFileWeight(index, weigth, source, name)
+    initFileWeight(index, weigth, abstract, name)
+    initFileWeight(index, weigth, minor, name)
+    initFileWeight(index, weigth, ref, name)
+    initFileWeight(index, weigth, cit, name)
 
     baseFiles[name] = {
       'Title': title,
