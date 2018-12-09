@@ -8,29 +8,16 @@ def readBaseFile(local):
   f.close()
   return txt
 
-def getString(string,inicio, fim):
+def getString(string, inicio, fim, number = True):
   start = string.find(inicio) + len(inicio)
   end = string.find(fim)
-  c = string[start:end].strip()
+  c = string[start:end].strip().lower()
   c = c.split()
-  c = removeNumber(c)
-  c = removeSR(c)
+  if number:
+    c = removeNumber(c)
+    c = removeSR(c)
   
   return c
-  
-def getSubString(string,inicio, fim):
-  start = string.find(inicio) + len(inicio)
-  end = string.find(fim)
-  c = string[start:end]
-  
-  return c
-
-def getNumber(string,inicio, fim):
-	start = string.find(inicio) + len(inicio)
-	end = string.find(fim)
-	c = string[start:end].strip()
-	return c
-  
   
 def initBase(baseFiles, texto, index, weigth):
   for linha in texto:
@@ -40,7 +27,7 @@ def initBase(baseFiles, texto, index, weigth):
     content = b.read()
     b.close()
 
-    content = pattern(content)
+    content = patternBase(content)
     
     c = content.strip()
 

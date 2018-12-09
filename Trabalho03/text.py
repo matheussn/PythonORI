@@ -17,16 +17,7 @@ def removeSR(vet):
 def removeNumber(vet):
   return [i for i in vet if not i.isdigit()]
 
-def pattern(str):
-  '''str = str.replace(':', ' ')
-  str = str.replace('TITLE', ' ')
-  str = str.replace('AUTHORS', ' ')
-  str = str.replace('SOURCE', ' ')
-  str = str.replace('ABSTRACT', ' ')
-  str = str.replace('MAJOR SUBJECTS', ' ')
-  str = str.replace('MINOR SUBJECTS', ' ')
-  str = str.replace('REFERENCES', ' ')
-  str = str.replace('CITATIONS', ' ')'''
+def patternBase(str):
   str = str.replace(';', ' ')
   str = str.replace(')', ' ')
   str = str.replace('(', ' ')
@@ -39,4 +30,17 @@ def pattern(str):
   str = str.replace('!', ' ')
   str = str.replace('?', ' ')
   str = str.replace('\n', ' ')
+  return str
+
+def patternQuery(str):
+  str = str.replace(';', ' ')
+  str = str.replace(')', ' ')
+  str = str.replace('(', ' ')
+  str = str.replace('/', ' ')
+  str = str.replace('\\', ' ')
+  str = str.replace('+', ' ')
+  str = str.replace('-', ' ')
+  str = str.replace('.', ' ')
+  str = str.replace('!', ' ')
+  str = str.replace('?', ' ')
   return str

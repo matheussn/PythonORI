@@ -11,24 +11,24 @@ def openQuery(local):
   return c
 
 def createDicQuery(dic, conteudo):
+  c = conteudo.strip()
+  c = patternQuery(c)
 
-			c = conteudo.strip()
-
-			number = getNumber(c, "NUMBER:", "TEXT:")
-			print(number)
-			
-			text = getString(c, "TEXT:", "NUMBER OF RELEVANT DOCS:")
-			print(text)
-			
-			nRelevantDocs = getNumber(c, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:" )
-			print(nRelevantDocs)
-			
-			relDocs = getNumber(c, "RELEVANT DOCS AND SCORES:", "\n\n" )
-			print(relDocs)
-			
-			string = getSubString(c, "NUMBER:", "\n\n")
-			
-			print (string)
+  number = getString(c, "NUMBER:", "TEXT:", False)
+  print(number)
+  
+  text = getString(c, "TEXT:", "NUMBER OF RELEVANT DOCS:")
+  print(text)
+  
+  nRelevantDocs = getString(c, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:", False)
+  print(nRelevantDocs)
+  
+  relDocs = getString(c, "RELEVANT DOCS AND SCORES:", "\n\n", False)
+  print(relDocs)
+  
+  #string = getSubString(c, "NUMBER:", "\n\n")
+  
+  #print (string)
 			
 			
 			

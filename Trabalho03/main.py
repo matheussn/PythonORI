@@ -13,27 +13,16 @@ def init():
 if __name__ == '__main__':
   init()
   
-  base = readBaseFile(sys.argv[1])
+  '''base = readBaseFile(sys.argv[1])
   baseFiles = dict()
   invertedIndex = dict()
   fileWeight = dict()
-  initBase(baseFiles, base, invertedIndex, fileWeight) #baseFile Dicionário dos arquivos
+  initBase(baseFiles, base, invertedIndex, fileWeight) #baseFile Dicionário dos arquivos'''
 
-
-  '''for i in range(1, len(baseFile) +1):
-	v = files.readBase(str(i))
-	dic.addToIndex(v, i)'''
-
-  #dic.initFileWeight()
-
-  #files.createWeightFile(dic.getFileWeight())
-  #print('termos: ' +str(len(dic.getIndex())))
-
-
-  '''query = {}
+  query = {}
 
   filequery = openQuery(sys.argv[2])
 
-  query = createDicQuery(query, filequery)'''
+  query = createDicQuery(query, filequery)
 
   
