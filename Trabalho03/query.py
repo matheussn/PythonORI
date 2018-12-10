@@ -63,5 +63,5 @@ def createDicQueryPonderacao(queries,totalFiles, invertedIndex):
 				nTotalDocsTermo = len(invertedIndex[query[termo]])
 				idf1 = idf(totalFiles,nTotalDocsTermo)
 				dicQueryPond[consulta][query[termo]] = tf1*idf1
-	print(dicQueryPond["consulta 40"])
-	#print(totalQuery)
+	print(dicQueryPond)
+	return dicQueryPond 
