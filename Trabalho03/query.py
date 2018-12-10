@@ -52,13 +52,16 @@ def createDicQueryPonderacao(queries,totalFiles, invertedIndex):
 	dicQueryPond = {}
 	
 	for aux in range(totalQuery):
-		consulta = 'consulta '+ str(aux)
+		consulta = 'consulta '+ str(aux+1)
 		dicQueryPond[consulta] = {}
 		query = queries[aux]['text']
 		totalTermos = len(query)
 		for termo in range(totalTermos):
 			if query[termo] in invertedIndex:
 				freq = sum(invertedIndex[query[termo]].values())
-				dicQueryPond[consulta][query[termo]] = tf(freq)
-	print(dicQueryPond)
-
+				tf1 = tf(freq)
+				nTotalDocsTermo = len(invertedIndex[query[termo]])
+				idf1 = idf(totalFiles,nTotalDocsTermo)
+				dicQueryPond[consulta][query[termo]] = tf1*idf1
+	print(dicQueryPond["consulta 40"])
+	#print(totalQuery)
