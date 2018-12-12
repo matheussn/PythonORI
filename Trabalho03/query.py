@@ -13,7 +13,7 @@ def openQuery(local):
 def createDicQuery(dicQuery, conteudo, index, lenBase):	
 	
 	queries = conteudo.split('\n\n')
-		
+	query = dict()
 	for aux in queries:
 		aux = patternQuery(aux)
 			
@@ -32,12 +32,12 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 			documento,score = relDocs[i].split(',')
 			relevantDocs[documento] = score 
 		
-		number = int(number[0]) - 1
+		number = int(number[0]) 
 	
 		dicQuery[number] = dict()
 		createDicQueryPonderacao(dicQuery, lenBase, index, text, number)
 
-		query = dict()
+		
 		query[number] = {
 			'text': text,
 			'nRelevantDocs': nRelevantDocs,
@@ -56,3 +56,20 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 				queries[number][termo] = tf1 * idf1
 			else:
 				queries[number][termo] = 0
+
+def calcSim(query, fileWeight):
+
+
+	for file in fileWeight:
+		for queries in query:
+			for termo in query[queries]:
+				print(fileWeight.get(termo))
+			
+			
+			break
+		break
+			
+		
+		
+	
+

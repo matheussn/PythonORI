@@ -26,4 +26,4 @@ if __name__ == '__main__':
   totalFiles = len(baseFiles)
   baseQuery = createDicQuery(query, filequery, invertedIndex, totalFiles)
   #createDicQueryPonderacao(query, totalFiles, invertedIndex)
-  print(query)
+  calcSim(query, fileWeight)
