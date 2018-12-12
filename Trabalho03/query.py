@@ -63,8 +63,10 @@ def calcSim(query, fileWeight):
 	for file in fileWeight:
 		for queries in query:
 			for termo in query[queries]:
-				print(fileWeight.get(termo))
-			
+				if fileWeight.get(termo) != None:
+					
+				else:
+					
 			
 			break
 		break
