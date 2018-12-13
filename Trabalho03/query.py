@@ -71,7 +71,7 @@ def calcSim(query, fileWeight):
 			for termo in query[queries]:
 				if fileWeight[strFile].get(termo) != None:
 					sumConsDoc = sumConsDoc + query[queries][termo] * fileWeight[strFile][termo]
-					sumDocumento = sumDocumento + fileWeight[file][termo]**2
+					sumDocumento = sumDocumento + fileWeight[strFile][termo]**2
 					sumConsulta = sumConsulta + query[queries][termo]**2
 			sumConsulta = sumConsulta**1/2
 			sumDocumento = sumDocumento**1/2		
