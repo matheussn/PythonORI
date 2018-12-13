@@ -58,20 +58,29 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 				queries[number][termo] = 0
 
 def calcSim(query, fileWeight):
-
-
+	
+	sim = dict();
 	for file in fileWeight:
 		for queries in query:
+			sim[str(file) + ' ' + str(queries)] = {}
+			sumConsDoc = 0
+			sumConsulta = 0
+			sumDocumento = 0
+			similaridade= 0
+			strFile = str(file)
 			for termo in query[queries]:
-				if fileWeight.get(termo) != None:
-					
-				else:
-					
+				if fileWeight[strFile].get(termo) != None:
+					sumConsDoc = sumConsDoc + query[queries][termo] * fileWeight[strFile][termo]
+					sumDocumento = sumDocumento + fileWeight[file][termo]**2
+					sumConsulta = sumConsulta + query[queries][termo]**2
+			sumConsulta = sumConsulta**1/2
+			sumDocumento = sumDocumento**1/2		
+			denominador = (sumDocumento * sumConsulta)
+			if denominador != 0:
+				sim[str(file) + ' ' + str(queries)] = sumConsDoc/denominador
+			else:
+				sim[str(file) + ' ' + str(queries)] = 0
 			
-			break
 		break
+	print(sim)
 			
-		
-		
-	
-
