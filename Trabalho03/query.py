@@ -15,6 +15,8 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 	queries = conteudo.split('\n\n')
 	query = dict()
 	for aux in queries:
+		if not aux:
+			break
 		aux = patternQuery(aux)
 			
 		number = getString(aux, "NUMBER:", "TEXT:", False)
