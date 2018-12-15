@@ -75,8 +75,8 @@ def calcSim(query, fileWeight, sim):
 					sumConsDoc = sumConsDoc + query[queries][termo] * fileWeight[strFile][termo]
 					sumDocumento = sumDocumento + fileWeight[strFile][termo]**2
 					sumConsulta = sumConsulta + query[queries][termo]**2
-			sumConsulta = sumConsulta**1/2
-			sumDocumento = sumDocumento**1/2		
+			sumConsulta = sumConsulta**(1/2)
+			sumDocumento = sumDocumento**(1/2)		
 			denominador = (sumDocumento * sumConsulta)
 			if denominador != 0:
 				sim[queries][file] = sumConsDoc/denominador

@@ -31,8 +31,6 @@ if __name__ == '__main__':
     initFileWeight(invertedIndex["BaseFiles"], fileWeight, baseFiles[i].get('MinorSub'), i, totalFiles)
     initFileWeight(invertedIndex["BaseFiles"], fileWeight, baseFiles[i].get('References'), i, totalFiles)
     initFileWeight(invertedIndex["BaseFiles"], fileWeight, baseFiles[i].get('Citations'), i, totalFiles)
-    
-  #print(fileWeight)
 
   query = dict()
   sim = dict()
