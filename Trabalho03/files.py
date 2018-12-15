@@ -19,7 +19,7 @@ def getString(string, inicio, fim, number = True):
   
   return c
   
-def initBase(baseFiles, texto, index, weigth):
+def initBase(baseFiles, texto, index):
   for linha in texto:
     linha = linha.replace('\n', '')
     b = open(linha, 'r')
@@ -54,16 +54,6 @@ def initBase(baseFiles, texto, index, weigth):
 
     cit = getString(c, "CITATIONS:", "\n\n")
     addIndex(index, cit, name)
-
-    ## INICIAR PESO!
-    weigth[name] = dict()
-    initFileWeight(index, weigth, title, name)
-    initFileWeight(index, weigth, authors, name)
-    initFileWeight(index, weigth, source, name)
-    initFileWeight(index, weigth, abstract, name)
-    initFileWeight(index, weigth, minor, name)
-    initFileWeight(index, weigth, ref, name)
-    initFileWeight(index, weigth, cit, name)
 
     baseFiles[name] = {
       'Title': title,

@@ -18,8 +18,10 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 		aux = patternQuery(aux)
 			
 		number = getString(aux, "NUMBER:", "TEXT:", False)
+		number = int(number[0]) 
 
 		text = getString(aux, "TEXT:", "NUMBER OF RELEVANT DOCS:")
+		addIndex(index["Queries"], text, number)
 
 		nRelevantDocs = getString(aux, "NUMBER OF RELEVANT DOCS:", "RELEVANT DOCS AND SCORES:", False)
 
@@ -31,11 +33,9 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 		for i in range(nRelevantDocs):
 			documento,score = relDocs[i].split(',')
 			relevantDocs[documento] = score 
-		
-		number = int(number[0]) 
 	
 		dicQuery[number] = dict()
-		createDicQueryPonderacao(dicQuery, lenBase, index, text, number)
+		createDicQueryPonderacao(dicQuery, lenBase, index["BaseFiles"], text, number)
 
 		
 		query[number] = {
@@ -57,12 +57,14 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 			else:
 				queries[number][termo] = 0
 
-def calcSim(query, fileWeight):
-	
-	sim = dict();
+def calcSim(query, fileWeight, sim):
+
 	for file in fileWeight:
+		#sim[str(file)] = dict()
 		for queries in query:
-			sim[str(file) + ' ' + str(queries)] = {}
+			if sim.get(queries) == None:
+				sim[queries] = dict()
+
 			sumConsDoc = 0
 			sumConsulta = 0
 			sumDocumento = 0
@@ -77,10 +79,9 @@ def calcSim(query, fileWeight):
 			sumDocumento = sumDocumento**1/2		
 			denominador = (sumDocumento * sumConsulta)
 			if denominador != 0:
-				sim[str(file) + ' ' + str(queries)] = sumConsDoc/denominador
+				sim[queries][file] = sumConsDoc/denominador
 			else:
-				sim[str(file) + ' ' + str(queries)] = 0
+				sim[queries][file] = 0
 			
-		break
-	print(sim)
+	#print(sim)
 			

@@ -14,8 +14,9 @@ def addIndex(index, vet, name):
 
 
 
-def initFileWeight(index, fileWeight, vet, name):
+def initFileWeight(index, fileWeight, vet, name, lenBase):
   for key in vet:
     freq = index[key].get(name)
-    fileWeight[name][key] = tf(index[key].get(name))
+    nDoc = len(index[key])
+    fileWeight[name][key] = tf(index[key].get(name)) * idf(lenBase, nDoc)
     #print("Termo: " + key + " Freq: "+ str(freq))
