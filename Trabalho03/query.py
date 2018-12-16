@@ -15,8 +15,6 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 	queries = conteudo.split('\n\n')
 	query = dict()
 	for aux in queries:
-		if not aux:
-			break
 		aux = patternQuery(aux)
 			
 		number = getString(aux, "NUMBER:", "TEXT:", False)
@@ -75,8 +73,9 @@ def calcSim(query, fileWeight, sim):
 			for termo in query[queries]:
 				if fileWeight[strFile].get(termo) != None:
 					sumConsDoc = sumConsDoc + query[queries][termo] * fileWeight[strFile][termo]
-					sumDocumento = sumDocumento + fileWeight[strFile][termo]**2
 					sumConsulta = sumConsulta + query[queries][termo]**2
+			for termo in fileWeight[strFile]:
+				sumDocumento = sumDocumento + fileWeight[strFile][termo]**2
 			sumConsulta = sumConsulta**(1/2)
 			sumDocumento = sumDocumento**(1/2)		
 			denominador = (sumDocumento * sumConsulta)
@@ -84,6 +83,6 @@ def calcSim(query, fileWeight, sim):
 				sim[queries][file] = sumConsDoc/denominador
 			else:
 				sim[queries][file] = 0
-			
+			 
 	#print(sim)
 			
