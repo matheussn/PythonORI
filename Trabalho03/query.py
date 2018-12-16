@@ -83,6 +83,3 @@ def calcSim(query, fileWeight, sim):
 				sim[queries][file] = sumConsDoc/denominador
 			else:
 				sim[queries][file] = 0
-			 
-	#print(sim)
-			
