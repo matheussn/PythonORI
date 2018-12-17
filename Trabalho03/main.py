@@ -40,10 +40,9 @@ if __name__ == '__main__':
   baseQuery = createDicQuery(query, filequery, invertedIndex, totalFiles)
   calcSim(query, fileWeight, sim)
 
-  print("SIMILARIDADE DA CONSULTA 2: ")
-  for i in sim.get(2):
-    print("DOC: " + i + " Sim: " + str(sim[2][i]))
-  
-  '''for i in baseFiles:
-    print(str(i) + ' -> '+ str(baseFiles[i]["MinorSub"]))'''
-  
+  metrica = dict()
+
+  initMetricas(metrica, sim, baseQuery)
+  media = calcMedia(metrica, len(baseQuery))
+
+  print(media)

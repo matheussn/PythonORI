@@ -63,7 +63,6 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 def calcSim(query, fileWeight, sim):
 
 	for file in fileWeight:
-		#sim[str(file)] = dict()
 		for queries in query:
 			if sim.get(queries) == None:
 				sim[queries] = dict()
@@ -85,5 +84,5 @@ def calcSim(query, fileWeight, sim):
 			if denominador != 0:
 				similaridade = sumConsDoc/denominador
 			
-			if similaridade != 0:
+			if similaridade != 0 and similaridade > 0.15:
 				sim[queries][file] = similaridade
