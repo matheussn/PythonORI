@@ -1,15 +1,6 @@
 from text import *
 from files import *
 
-def initDicQuery():
-  return {}
-
-def openQuery(local):
-  p = open(local, 'r')
-  c = p.read()
-  p.close()
-  return c
-
 def createDicQuery(dicQuery, conteudo, index, lenBase):	
 	
 	queries = conteudo.split('\n\n')

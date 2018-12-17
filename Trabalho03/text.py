@@ -1,8 +1,3 @@
-'''
-  Classe que possui todos os métodos e manipuladores de texto e o nltk
-  que serão utilizados pelo sistema de RI
-'''
-
 import nltk
 
 stemmer = nltk.stem.SnowballStemmer("english")

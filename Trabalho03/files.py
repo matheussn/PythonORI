@@ -2,6 +2,12 @@ from text import *
 from func import *
 from dic import *
 
+def openQuery(local):
+  p = open(local, 'r')
+  c = p.read()
+  p.close()
+  return c
+
 def readBaseFile(local):
   f = open(local, 'r', encoding="ISO-8859-1")
   txt = f.readlines()
@@ -71,19 +77,3 @@ def initBase(baseFiles, texto, index):
       'References': ref,
       'Citations': cit
       }
-
-
-def createWeightFile(dicFile):
-  f = open('peso.txt', 'w')
-  texto = []
-
-  for x in dicFile:
-    s = ''+str(x)+':'
-    for y in dicFile[x]:
-      s = s + ' ' + str(y) + ',' +str(dicFile[x][y])
-    
-    s = s + '\n'
-    texto.append(s)
-
-  f.writelines(texto)
-  f.close()
