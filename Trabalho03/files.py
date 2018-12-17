@@ -8,10 +8,14 @@ def readBaseFile(local):
   f.close()
   return txt
 
-def getString(string, inicio, fim, number = True):
+def getString(string, inicio, fim, number = True, remove = None):
   start = string.find(inicio) + len(inicio)
   end = string.find(fim)
   c = string[start:end].strip().lower()
+
+  if remove != None:
+    c = c.replace(remove, ' ')
+
   c = c.split()
   if number:
     c = removeNumber(c)
@@ -35,25 +39,27 @@ def initBase(baseFiles, texto, index):
     addIndex(index, title, name)
 
     authors = getString(c, "AUTHORS:", "SOURCE:")
-    addIndex(index, authors, name)
+    #addIndex(index, authors, name)
 
     source = getString(c, "SOURCE:", "ABSTRACT:")
-    addIndex(index, source, name)
+    #addIndex(index, source, name)
 
     abstract = getString(c, "ABSTRACT:", "MAJOR SUBJECTS:")
     addIndex(index, abstract, name)
     
-    major = getString(c, "MAJOR SUBJECTS:", "MINOR SUBJECTS:")
+    major = getString(c, "MAJOR SUBJECTS:", "MINOR SUBJECTS:", remove=':')
+    major = processSub(major)
     addIndex(index, major, name)
 
-    minor = getString(c, "MINOR SUBJECTS:", "REFERENCES:")
+    minor = getString(c, "MINOR SUBJECTS:", "REFERENCES:", remove=':')
+    minor = processSub(minor)
     addIndex(index, minor, name)
 
     ref = getString(c, "REFERENCES:", "CITATIONS:")
-    addIndex(index, ref, name)
+    #addIndex(index, ref, name)
 
     cit = getString(c, "CITATIONS:", "\n\n")
-    addIndex(index, cit, name)
+    #addIndex(index, cit, name)
 
     baseFiles[name] = {
       'Title': title,
