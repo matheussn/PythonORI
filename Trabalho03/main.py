@@ -27,7 +27,7 @@ if __name__ == '__main__':
   if len(sys.argv) == 3 or '-v' in sys.argv:
     vetorial(sys)
   elif '-vm' in sys.argv:
-    values = {"referencia":0.015, "titulo":0.015, 'abstract':0.015, 'majorSub': 0.015, 'minorSub':0.015}
+    values = {"referencia":0.045, "titulo":0.02, 'abstract':0.05, 'majorSub': 0.07, 'minorSub':0.04}
     print("Você escolheu a opção do vetorial modificado!")
     flag = input("Gostaria de alterar alguns valores para testar novas configurações do modelo!? (1->Sim; 0->Não): ")
     if flag == '1':
