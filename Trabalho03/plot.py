@@ -13,6 +13,9 @@ def interpolar(media):
 def plot(media):
   y = interpolar(media)
   x = media.keys()
+
+  print(x)
+  print(y)
   plt.plot(x, y, 'g')
   plt.axis( [0, 100, 0, 100])
 

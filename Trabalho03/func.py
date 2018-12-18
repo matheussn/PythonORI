@@ -1,11 +1,10 @@
 import math
 
-def tf(freq, porcent=0.0):
-	v = 1+ math.log(freq,10)
-	v += v *porcent
-	return v
-	
-def idf(TotalDocumentos,nDocumentosComTermo, porcent=0.0):
-	aux = TotalDocumentos/nDocumentosComTermo
-	aux += aux * porcent
-	return math.log(aux,10)
+def tfidf(freq, TotalDocumentos, nDocumentosComTermo, porcent=0.0):
+	tf = 1+ math.log(freq,10)
+	idf = TotalDocumentos/nDocumentosComTermo
+	idf = math.log(idf,10)
+
+	total = tf * idf
+	total += total * porcent
+	return total

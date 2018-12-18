@@ -45,13 +45,11 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 			if invertedIndex.get(termo) != None:
 				nTotalDocsTermo = len(invertedIndex[termo])
 				freq = text.count(termo)
-				tf1 = tf(freq)
-				idf1 = idf(totalFiles,nTotalDocsTermo)
-				queries[number][termo] = tf1 * idf1
+				queries[number][termo] = tfidf(freq,totalFiles,nTotalDocsTermo)
 			else:
 				queries[number][termo] = 0
 
-def calcSim(query, fileWeight, sim, baseFile = None, media = None, porc = 1.0):
+def calcSim(query, fileWeight, sim, baseFile = None, media = None, porc = 0.0):
 	for file in fileWeight:
 		v = porc
 
@@ -86,7 +84,4 @@ def calcSim(query, fileWeight, sim, baseFile = None, media = None, porc = 1.0):
 				similaridade = sumConsDoc/denominador
 			
 			if similaridade != 0 and similaridade > 0.15:
-				if v == 0.0:
-					sim[queries][strFile] = similaridade
-				else:
-					sim[queries][strFile] = similaridade +(similaridade * v)
+				sim[queries][strFile] = similaridade +(similaridade * v)

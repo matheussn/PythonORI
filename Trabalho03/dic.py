@@ -17,9 +17,9 @@ def initFileWeight(index, fileWeight, vet, name, lenBase, porcent = None):
     freq = index[key].get(name)
     nDoc = len(index[key])
     if porcent != None:
-      fileWeight[name][key] = tf(index[key].get(name), porcent) * idf(lenBase, nDoc, porcent)
+      fileWeight[name][key] = tfidf(index[key].get(name),lenBase, nDoc, porcent)
     else:
-      fileWeight[name][key] = tf(index[key].get(name)) * idf(lenBase, nDoc)
+      fileWeight[name][key] = tfidf(index[key].get(name), lenBase, nDoc)
       
 def initMetricas(met, sim, baseQuery):
   media = dict()
