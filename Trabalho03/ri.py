@@ -1,9 +1,11 @@
 from dic import *
 from files import *
 from query import *
-from plot import *
+from func import *
 
-
+"""
+  Função que executa os comandos necessários para simulação do modelo vetorial
+"""
 def vetorial(sys):
   base = readBaseFile(sys.argv[1])
   baseFiles = dict()
@@ -35,6 +37,9 @@ def vetorial(sys):
 
   plot(media)
 
+"""
+  Função que executa os comandos necessários para simulação do modelo vetorial modificado
+"""
 def modificado(sys, values):
   base = readBaseFile(sys.argv[1])
   baseFiles = dict()

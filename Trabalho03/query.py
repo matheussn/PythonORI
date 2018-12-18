@@ -1,6 +1,9 @@
 from text import *
 from files import *
 
+"""
+	Função que cria o dicionário das queries
+"""
 def createDicQuery(dicQuery, conteudo, index, lenBase):	
 	
 	queries = conteudo.split('\n\n')
@@ -38,7 +41,10 @@ def createDicQuery(dicQuery, conteudo, index, lenBase):
 			'relDocs': relevantDocs,	
 		}	
 	return query
-	
+
+"""
+	Função que cria o dicionário de ponderação dos termos das queries
+"""
 def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 	for termo in text:
 		if queries[number].get(termo) == None:
@@ -49,6 +55,9 @@ def createDicQueryPonderacao(queries, totalFiles, invertedIndex, text, number):
 			else:
 				queries[number][termo] = 0
 
+"""
+	Função para calcular a similaridade
+"""
 def calcSim(query, fileWeight, sim, baseFile = None, media = None, porc = 0.0):
 	for file in fileWeight:
 		v = porc

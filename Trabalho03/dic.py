@@ -1,5 +1,8 @@
 from func import *
 
+"""
+  Função que adiciona o termo do vetor (vet) no indice invertido (index)
+"""
 def addIndex(index, vet, name):
   for p in vet:
     if index.get(p) == None:
@@ -12,6 +15,9 @@ def addIndex(index, vet, name):
     
     v[name] += 1
 
+"""
+  Função que cria o dicionario de peso do arquivo, calculando o tf-idf
+"""
 def initFileWeight(index, fileWeight, vet, name, lenBase, porcent = None):
   for key in vet:
     freq = index[key].get(name)
@@ -20,7 +26,10 @@ def initFileWeight(index, fileWeight, vet, name, lenBase, porcent = None):
       fileWeight[name][key] = tfidf(freq,lenBase, nDoc, porcent)
     else:
       fileWeight[name][key] = tfidf(freq, lenBase, nDoc)
-      
+
+"""
+  Função que inicializa um dicionário para salvar as metricas para avaliação do modelo de RI
+"""
 def initMetricas(met, sim, baseQuery):
   media = dict()
   for i in sim:
@@ -41,6 +50,9 @@ def initMetricas(met, sim, baseQuery):
         met[i]['r&p'][item] = (r, p)
         test(met[i]['r&p'][item], met[i]['niveis']) 
 
+"""
+  Função que pega o maior valor nos 11 níveis de revocação
+"""
 def test(tup, media):
   for i in range(1, 12):
     inf = (i-2) * 10
@@ -52,6 +64,9 @@ def test(tup, media):
         media[s] = 0
       media[s] = tup[1] if tup[1] > media[s] else media[s]
 
+"""
+  Função para calcular a média da precisão por revocação
+"""
 def calcMedia(met, tam):
   media = {0:0, 10:0, 20:0, 30:0, 40:0, 50:0, 60:0, 70:0, 80:0, 90:0, 100:0}
   for i in range(0, 100, 10):

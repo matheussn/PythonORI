@@ -2,18 +2,27 @@ from text import *
 from func import *
 from dic import *
 
+"""
+  Ler o arquivo de query
+"""
 def openQuery(local):
   p = open(local, 'r')
   c = p.read()
   p.close()
   return c
 
+"""
+  Ler arquivo da base
+"""
 def readBaseFile(local):
   f = open(local, 'r', encoding="ISO-8859-1")
   txt = f.readlines()
   f.close()
   return txt
 
+"""
+  Função para pegar uma substring dentro de uma string
+"""
 def getString(string, inicio, fim, number = True, remove = None):
   start = string.find(inicio) + len(inicio)
   end = string.find(fim)
@@ -29,13 +38,21 @@ def getString(string, inicio, fim, number = True, remove = None):
   
   return c
 
+"""
+  Função que pega uma substring de uma string, porém sem remoção das quebras de linha,
+  para realizar a contagem de linhas
+"""
 def contLines(string, inicio, fim):
   start = string.find(inicio) + len(inicio)
   end = string.find(fim)
   c = string[start:end].strip().lower()
   c = c.split('\n')
   return len(c)
-  
+
+"""
+  Lê os arquivos da base, adicionando no indice invertido
+  Calcula as médias de referencia e citações
+"""
 def initBase(baseFiles, texto, index, medias = dict()):
   mediaRef = 0
   mediaCit = 0
