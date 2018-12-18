@@ -20,6 +20,7 @@ def patternBase(str):
   str = str.replace('\\', ' ')
   str = str.replace('\"', ' ')
   str = str.replace('[', ' ')
+  str = str.replace(']', ' ')
   str = str.replace('%', ' ')
   str = str.replace('+', ' ')
   str = str.replace('-', ' ')
