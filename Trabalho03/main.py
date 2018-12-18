@@ -3,6 +3,7 @@ import sys
 from dic import *
 from files import *
 from query import *
+from plot import *
 
 def init():
   if len(sys.argv) != 3:
@@ -45,4 +46,4 @@ if __name__ == '__main__':
   initMetricas(metrica, sim, baseQuery)
   media = calcMedia(metrica, len(baseQuery))
 
-  print(media)
+  plot(media)
