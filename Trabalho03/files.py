@@ -28,14 +28,29 @@ def getString(string, inicio, fim, number = True, remove = None):
     c = removeSR(c)
   
   return c
+
+def contLines(string, inicio, fim):
+  start = string.find(inicio) + len(inicio)
+  end = string.find(fim)
+  c = string[start:end].strip().lower()
+  c = c.split('\n')
+  return len(c)
   
-def initBase(baseFiles, texto, index):
+def initBase(baseFiles, texto, index, medias = dict()):
+  mediaRef = 0
+  mediaCit = 0
+
   for linha in texto:
     linha = linha.replace('\n', '')
     b = open(linha, 'r')
     name = b.name.replace('./base/', '')
     content = b.read()
     b.close()
+
+    ref = contLines(content, "REFERENCES:", "CITATIONS:")
+    mediaRef += ref
+    cit = contLines(content, "CITATIONS:", "\n\n")
+    mediaCit += cit
 
     content = patternBase(content)
     
@@ -61,12 +76,6 @@ def initBase(baseFiles, texto, index):
     minor = processSub(minor)
     addIndex(index, minor, name)
 
-    ref = getString(c, "REFERENCES:", "CITATIONS:")
-    #addIndex(index, ref, name)
-
-    cit = getString(c, "CITATIONS:", "\n\n")
-    #addIndex(index, cit, name)
-
     baseFiles[name] = {
       'Title': title,
       'Authors': authors,
@@ -77,3 +86,9 @@ def initBase(baseFiles, texto, index):
       'References': ref,
       'Citations': cit
       }
+      
+  mediaRef = mediaRef / len(baseFiles)
+  mediaCit = mediaCit / len(baseFiles)
+
+  medias["RefMedia"] = mediaRef
+  medias["CitMedia"] = mediaCit
